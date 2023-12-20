@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "831652289855",
+    "project_id": "travso",
+    "storage_bucket": "travso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831652289855:android:1862696fd62a0259c4c78a",
+        "android_client_info": {
+          "package_name": "com.travso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh4dbqwTi7YP5bh8MIyb6Y5OyHoaIY1qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
