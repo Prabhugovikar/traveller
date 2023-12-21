@@ -22,7 +22,7 @@ export default function App () {
  
 
   const path =()=>{
-    navigation.replace("OtpVerfication")
+    navigation.replace("DashboardTab")
   }
 
     return (
