@@ -14,6 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import messaging from "@react-native-firebase/messaging";
 import PushNotification, { Importance } from 'react-native-push-notification';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function App () {
 
     const navigation = useNavigation()
@@ -29,6 +30,7 @@ export default function App () {
         try {
           const token = await messaging().getToken();
           console.log("token",token);
+         await AsyncStorage.setItem('fcmToken', token);
         } catch (e) {
           console.log(error);
         }

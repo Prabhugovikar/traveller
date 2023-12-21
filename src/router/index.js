@@ -21,6 +21,7 @@ import ExploreScreen from "../screens/dashboard/explorescreen/Explore"
 import MainUpload from "../screens/dashboard/mainuploadPost/MainPost"
 import ReelsScreen from "../screens/dashboard/Reels/Reels"
 import Notification from "../screens/dashboard/Notification/notification"
+import OtherStory from "../screens/dashboard/homeScreen/OtherStory"
 const Stack = createNativeStackNavigator();
 
 
@@ -46,6 +47,7 @@ function App() {
          <Stack.Screen name='MainUpload' component={MainUpload}/>
          <Stack.Screen name="ReelsScreen" component={ReelsScreen}/>
          <Stack.Screen name="Notification" component={Notification}/>
+         <Stack.Screen name='OtherStory' component={OtherStory}/>
   </Stack.Navigator>
     </NavigationContainer>
   );

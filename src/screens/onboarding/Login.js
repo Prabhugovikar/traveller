@@ -1,4 +1,3 @@
-
 import React, { useRef,useState } from 'react';
 import {
   View,
@@ -9,12 +8,14 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput
+  TextInput,
+  Modal
 } from 'react-native';
 // import {  } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { API_URL } from '../../services';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function App() {
     const [name,setName]=useState('')
     const [number,setNumber]=useState('')
@@ -23,6 +24,8 @@ export default function App() {
     const [confirmPassword,setConfirmPassword]=useState('')
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [selectedGender, setSelectedGender] = useState('');
+    const [errormodal,seterrormodal]=useState(false)
+    const [successmodal,setsuccessmodal]=useState(false)
   
     const genderOptions = ['Male', 'Female', 'Other'];
   
@@ -38,9 +41,15 @@ export default function App() {
     const navigation = useNavigation()
 
 
+
+
     const Registartion = async()=> {
 
-      var myHeaders = new Headers();
+      let fcmToken = await AsyncStorage.getItem("fcmToken")
+
+      if(email) {
+
+        var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
@@ -50,7 +59,7 @@ export default function App() {
           "password":password,
           "confirmpassword":confirmPassword,
            "gender":isDropdownOpen,
-          "token":"Token"
+          "token":fcmToken
         });
 
         var requestOptions = {
@@ -66,7 +75,58 @@ export default function App() {
             console.log(result)
           })
           .catch(error => console.log('error', error));
+
+      } else {
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          "name":name,
+          "mobileNumber":number,
+          "password":password,
+          "confirmpassword":confirmPassword,
+           "gender":isDropdownOpen,
+          "token":fcmToken
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+
+        fetch(API_URL+"travelerRegistration", requestOptions)
+          .then(response => response.json())
+          .then(result =>{
+            if(result.Status===true) {
+              console.log(result)
+              setsuccessmodal(true)
+            } else {
+              seterrormodal(true)
+            }
+           
+          })
+          .catch(error => console.log('error', error));
+
+        
+      }
+       
+
+     
     }
+
+
+    const closeSuccessModal = () => {
+      setsuccessmodal(false)
+      navigation.replace('DashboardTab')
+     
+     };
+   
+       const closeModal = () => {
+         seterrormodal(false)
+       };
 
  
 
@@ -203,8 +263,10 @@ export default function App() {
                 
                 </View>
 
-                <View style={{flexDirection:'row'
-                ,marginLeft:10,
+                <View 
+                style={{
+                flexDirection:'row',
+                marginLeft:10,
                 marginRight:10,
                 backgroundColor:'rgba(137, 138, 131, 0.05)',
                 borderRadius:20,
@@ -268,6 +330,51 @@ export default function App() {
          
           </View>
             </View>
+
+            <View>
+         <Modal
+          animationType="slide"
+          transparent={true}
+          visible={successmodal}
+          onRequestClose={closeModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              
+                <View>
+                  <Text style={styles.modalText}>User Created Successfully</Text>
+                  <TouchableOpacity style={styles.modalCloseText} onPress={()=>closeSuccessModal()}>
+                    <Text>Continue</Text>
+                  </TouchableOpacity>
+                </View>
+              
+            </View>
+          </View>
+        </Modal>
+         </View>
+
+         
+         <View>
+         <Modal
+          animationType="slide"
+          transparent={true}
+          visible={errormodal}
+          onRequestClose={closeModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              
+                <View>
+                  <Text style={styles.modalText}>Please Fill All The Details</Text>
+                  <TouchableOpacity style={styles.modalCloseText} onPress={()=>closeModal()}>
+                    <Text>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              
+            </View>
+          </View>
+        </Modal>
+         </View>
                 </ImageBackground>
                
                 </ScrollView>
@@ -329,4 +436,35 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
       },
+
+          
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    width: 300,
+  },
+  modalText: {
+    fontSize: 18,
+    textAlign: "center",
+  },
+  modalCloseText: {
+    marginTop:10,
+    color: ['#2DC6BE', '#C9E32E'],
+    backgroundColor: "#2caf7b",
+    width: 100,
+    alignItems: "center",
+    height: 50,
+    justifyContent: "center",
+    borderRadius: 50,
+    textAlign:'center',
+    alignContent:'center',
+    alignSelf:'center',
+  },
 })

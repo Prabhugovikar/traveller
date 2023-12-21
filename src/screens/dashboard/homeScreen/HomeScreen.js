@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 export default function App () {
+    const navigation = useNavigation()
     return (
         <SafeAreaView style={{flex:1,}}>
             <View style={{flex:1}}>
@@ -51,12 +52,13 @@ export default function App () {
                  <Text style={{fontSize:10,fontWeight:'600',color:'#898A83',marginLeft:10}}>Your Moment</Text>
                 </View>
                  
-                
+                <TouchableOpacity onPress={()=>navigation.navigate("OtherStory")}>
                 <ImageBackground style={style.otherstoty}
                 source={require("../../../assetes/Image.png")}
                 >
                   <Image style={{width:24,height:24,borderRadius:24,borderColor:'#2DC6BE',borderWidth:1,marginTop:5,marginLeft:5}} source={require("../../../assetes/Image.png")}/>
                 </ImageBackground>
+                </TouchableOpacity>
 
                 <ImageBackground style={style.otherstoty}
                 source={require("../../../assetes/Image.png")}
