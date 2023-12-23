@@ -29,7 +29,7 @@ export default function App () {
 
     <SafeAreaView style={{flex:1,backgroundColor:"#FFF"}}>
 
-      <ImageBackground style={{backgroundColor:"black",width:375,height:730,}} source={require("../../assetes/background.jpg")}>
+      <ImageBackground style={{backgroundColor:"black",width:"100%",height:730,}} source={require("../../assetes/background.jpg")}>
 
         <View style={{flexDirection:'row',marginTop:30,justifyContent:'center',alignItems:'center'}}>
         <TouchableOpacity style={{ flexDirection:'row',marginLeft:-30}}onPress={()=>navigation.navigate("Registartion")} >
@@ -120,7 +120,7 @@ back : {
 },
 
 form :{
-    width : 360,
+    width :'100%',
     height:776,
     backgroundColor:"#FFF",
     borderTopRightRadius:30,

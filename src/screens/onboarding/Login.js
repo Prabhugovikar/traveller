@@ -26,6 +26,8 @@ export default function App() {
     const [selectedGender, setSelectedGender] = useState('');
     const [errormodal,seterrormodal]=useState(false)
     const [successmodal,setsuccessmodal]=useState(false)
+    const [successMsg,setsuccessMsg]=useState('')
+    const [errorMsg,seterrorMsg]= useState('')
   
     const genderOptions = ['Male', 'Female', 'Other'];
   
@@ -69,10 +71,22 @@ export default function App() {
           redirect: 'follow'
         };
 
-        fetch(API_URL+"travelerRegistration", requestOptions)
+       fetch(API_URL+"travelerRegistration", requestOptions)
           .then(response => response.json())
           .then(result =>{
             console.log(result)
+            if(result.Status===true) {
+              AsyncStorage.setItem("userName",result.user.name)
+              AsyncStorage.setItem("user_id",result.user._id)
+              AsyncStorage.setItem("user_mobilenumber",result.user.mobileNumber)
+              AsyncStorage.setItem("userpassword",result.user.password)
+              setsuccessMsg(result.message)
+              setsuccessmodal(true)
+            } else {
+              seterrormodal(true)
+              seterrorMsg(result.message)
+            }
+           
           })
           .catch(error => console.log('error', error));
 
@@ -89,7 +103,7 @@ export default function App() {
            "gender":isDropdownOpen,
           "token":fcmToken
         });
-
+         console.log("raw",raw)
         var requestOptions = {
           method: 'POST',
           headers: myHeaders,
@@ -102,15 +116,19 @@ export default function App() {
           .then(result =>{
             if(result.Status===true) {
               console.log(result)
+              AsyncStorage.setItem("userName",result.user.name)
+              AsyncStorage.setItem("user_id",result.user._id)
+              AsyncStorage.setItem("user_mobilenumber",result.user.mobileNumber)
+              AsyncStorage.setItem("userpassword",result.user.password)
+              setsuccessMsg(result.message)
               setsuccessmodal(true)
             } else {
+              seterrorMsg(result.message)
               seterrormodal(true)
             }
            
           })
           .catch(error => console.log('error', error));
-
-        
       }
        
 
@@ -134,7 +152,7 @@ export default function App() {
         <SafeAreaView style={{flex:1,backgroundColor:"#FFF"}}>
         <ScrollView  >
            
-          <ImageBackground style={{backgroundColor:"black",width:375,height:730,}} source={require("../../assetes/background.jpg")}>
+          <ImageBackground style={{backgroundColor:"black",width:"100%",height:730,}} source={require("../../assetes/background.jpg")}>
             <View style={{flexDirection:'row',marginTop:30,justifyContent:'center',alignItems:'center'}}>
             <View style={{ flexDirection:'row',marginLeft:-30}} >
                 <Image style={{height:24,width:24}} source={require("../../assetes/backicon.png")}/>
@@ -308,7 +326,7 @@ export default function App() {
                backgroundColor: 'white',
               }}
             >
-              <TouchableOpacity onPress={()=>navigation.replace("DashboardTab")} >
+              <TouchableOpacity onPress={()=>Registartion()} >
                 <View style={{flexDirection:'row'}}>
                 <Text style={{fontSize:16,fontWeight:'700',color:'#FFF', width:232,
               height:22}} >
@@ -342,9 +360,9 @@ export default function App() {
             <View style={styles.modalContent}>
               
                 <View>
-                  <Text style={styles.modalText}>User Created Successfully</Text>
+                  <Text style={styles.modalText}>{successMsg}</Text>
                   <TouchableOpacity style={styles.modalCloseText} onPress={()=>closeSuccessModal()}>
-                    <Text>Continue</Text>
+                    <Text style={{color:'#FFF',fontSize:16,fontWeight:'400'}}>Continue</Text>
                   </TouchableOpacity>
                 </View>
               
@@ -365,9 +383,9 @@ export default function App() {
             <View style={styles.modalContent}>
               
                 <View>
-                  <Text style={styles.modalText}>Please Fill All The Details</Text>
+                  <Text style={styles.modalText}>{errorMsg}</Text>
                   <TouchableOpacity style={styles.modalCloseText} onPress={()=>closeModal()}>
-                    <Text>Close</Text>
+                    <Text style={{color:'#FFF',fontSize:16,fontWeight:'400'}}>Close</Text>
                   </TouchableOpacity>
                 </View>
               
@@ -390,7 +408,7 @@ const styles = StyleSheet.create({
     },
 
     form :{
-        width : 360,
+        width :"100%",
         height:776,
         backgroundColor:"#FFF",
         borderTopRightRadius:30,
@@ -451,7 +469,8 @@ const styles = StyleSheet.create({
     width: 300,
   },
   modalText: {
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight:'400',
     textAlign: "center",
   },
   modalCloseText: {
