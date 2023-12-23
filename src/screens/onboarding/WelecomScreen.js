@@ -109,7 +109,7 @@ export default function Onboarding11() {
           ))}
         </Swiper>
 
-         <View style={{justifyContent:'center',alignItems:'center',marginBottom:10}}>
+         <View style={{justifyContent:'center',alignItems:'center',marginTop:20,marginBottom:10}}>
             <LinearGradient
              start={{ x: 0, y: 0.8 }}
              end={{ x: 2, y: 0.8 }}
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
   },
   rectangle6: {
     flexShrink: 0,
-     width: 375,
-     height:692,
+     width:"100%",
+     height:750,
   },
   joinOurYogaClasses: {
     flexShrink: 0,
-    marginTop:510,
+    marginTop:550,
     marginLeft:30,
     marginRight:30,
     textAlign: "left",
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   pagination: {
-    marginTop:634,
-    left:-230,
+    marginTop:700,
+    left:-270,
     top:10
     
   },

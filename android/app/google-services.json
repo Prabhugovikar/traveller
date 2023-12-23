@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "831652289855",
-    "project_id": "travso",
-    "storage_bucket": "travso.appspot.com"
+    "project_number": "160300578314",
+    "project_id": "traveller-4d835",
+    "storage_bucket": "traveller-4d835.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:831652289855:android:1862696fd62a0259c4c78a",
+        "mobilesdk_app_id": "1:160300578314:android:d8ab46e2d92b4afe4711f3",
         "android_client_info": {
           "package_name": "com.travso"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBh4dbqwTi7YP5bh8MIyb6Y5OyHoaIY1qo"
+          "current_key": "AIzaSyBmng0H_M4ay6_h-ymIFW-E9yecEtZX2oY"
         }
       ],
       "services": {

@@ -84,7 +84,7 @@ export default function App () {
                 <View style={style.post}>
                     <View style={style.singlepost}>
                      <View>
-                        <ImageBackground style={{width:345,height:180,borderRadius:2}} source={require("../../../assetes/Image.png")}>
+                        <ImageBackground style={{width:"100%",height:180,borderRadius:2}} source={require("../../../assetes/Image.png")}>
                         <View style={{marginLeft:12,marginTop:160}}>
                         <Image style={{width:40,height:40,borderRadius:40,borderColor:"#FFF",borderWidth:1}} source={require("../../../assetes/Image.png")}/>
                      </View>
@@ -133,7 +133,7 @@ export default function App () {
                 <View style={style.post}>
                     <View style={style.singlepost}>
                      <View>
-                        <ImageBackground style={{width:345,height:180,borderRadius:2}} source={require("../../../assetes/Image.png")}>
+                        <ImageBackground style={{width:'100%',height:180,borderRadius:2}} source={require("../../../assetes/Image.png")}>
                         <View style={{marginLeft:12,marginTop:160}}>
                         <Image style={{width:40,height:40,borderRadius:40,borderColor:"#FFF",borderWidth:1}} source={require("../../../assetes/Image.png")}/>
                      </View>
@@ -216,10 +216,9 @@ const style =StyleSheet.create({
     body :{
         backgroundColor:"#F5F5F5",
         marginTop:20,
-        marginLeft:8,
-        marginRight:8,
+        marginLeft:15,
+        marginRight:15,
         marginBottom:20,
-        width:345
         
     },
     story : {
@@ -244,7 +243,7 @@ const style =StyleSheet.create({
         marginTop:20,
     },
     singlepost :{
-        width: 345,
+        width: "100%",
         height: 300,
         backgroundColor: '#FFF',
         borderRadius: 4,
